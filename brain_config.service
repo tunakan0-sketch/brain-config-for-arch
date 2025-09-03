@@ -1,0 +1,18 @@
+[Unit]
+Description=CPU Governor Configuration (ondemand unless shift key is pressed)
+Documentation=man:systemd.service(5)
+After=multi-user.target
+Wants=multi-user.target
+DefaultDependencies=no
+ConditionPathExists=/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/brain-config-cpufreq
+TimeoutStartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
